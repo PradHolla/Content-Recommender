@@ -1,2 +1,2 @@
 # TF-Recommenders
-TensorFlow Recommender System using Python.
+Movie Recommender System built using TensorFlow, Movielens Dataset and Tensorflow Recommenders Library.
