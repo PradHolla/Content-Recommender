@@ -1,2 +1,2 @@
-# TF-Recommenders
-Movie Recommender System built using TensorFlow, Movielens Dataset and Tensorflow Recommenders Library.
+# Content Recommender System
+Movie Recommender System built using the IMDb dataset, using PCA, Transformers, Pandas and NumPy.
