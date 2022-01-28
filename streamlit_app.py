@@ -2,9 +2,14 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(page_title="Movie Recommender System", page_icon="🎬", layout="wide")
-st.header("Recommendation System")
-
-st.subheader("User Input Features")
+st.header("Movie Recommender")
+st.write("""
+###### This app recommends 5 similar movies to the one you watched. Just enter the movie title and click on the button.
+###### This app is based on the IMDb 1000 movies dataset. The dataset is available [here](https://www.kaggle.com/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows).\
+ The movie plots are converted into vectors and grouped using the Sentence Transformers Library. Then when the user selects a movie, the app finds 5 nearest vectors\
+    using Cosine Similarity and returns the 5 movies.
+""")
+st.subheader("Enter the movie you watched:")
 
 @st.cache
 def load_data(df1, df2):
@@ -42,12 +47,13 @@ def give_recommendations(index,print_recommendation=False,print_recommendation_p
 
 data, cos_sim_data, series_title = load_data('data.csv', 'cos_sim_data.pkl')
 
-movie_name = st.selectbox("Enter a movie name: ", (series_title))
-btn = st.button("Recommendation")
-st.write(movie_name)
-if btn:
-    for idx, elm in enumerate(series_title[1:]):
-        if elm == movie_name:
-            st.write(idx)
-            ret = (give_recommendations(idx,True,True,True))
+if __name__ == "__main__":
+    movie_name = st.selectbox("Start Typing: ", (series_title))
+    btn = st.button("Recommendation")
+    st.write(movie_name)
+    if btn:
+        for idx, elm in enumerate(series_title[1:]):
+            if elm == movie_name:
+                st.write(idx)
+                ret = (give_recommendations(idx,True,True,True))
             
