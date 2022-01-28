@@ -1,4 +1,4 @@
-# Content Recommender System
+# Content Recommender System [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/pradholla/content-recommender/main)
 Movie Recommender System built using the IMDb 1000 movies dataset, PCA, Transformers, Pandas and NumPy.
 
 # Install Required libraries
