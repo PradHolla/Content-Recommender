@@ -45,7 +45,7 @@ def give_recommendations(index,print_recommendation=False,print_recommendation_p
             st.write('The plot of the number %i recommended movie is this one:  \n %s \n'%(k,plot_q))
     return result
 
-data, cos_sim_data, series_title = load_data('data.csv', 'cos_sim_data.pkl')
+data, cos_sim_data, series_title = load_data('Data/data.csv', 'Data/cos_sim_data.pkl')
 
 if __name__ == "__main__":
     movie_name = st.selectbox("Start Typing: ", (series_title))
