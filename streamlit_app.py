@@ -1,7 +1,12 @@
 import streamlit as st
 import pandas as pd
-
+from PIL import Image
 st.set_page_config(page_title="Movie Recommender System", page_icon="🎬", layout="wide")
+
+background = Image.open("Data/clapper.png")
+col1, col2, col3 = st.columns([3, 3, 1])
+col2.image(background, width=200)
+# st.image("Data/clapper.png", width=200)
 st.header("Movie Recommender")
 st.write("""
 ###### This app recommends 5 similar movies to the one you watched. Just enter the movie title and click on the button.
@@ -19,34 +24,20 @@ def load_data(df1, df2):
     series_title.insert(0,'')
     return data, cos_sim_data, series_title
 
-def give_recommendations(index,print_recommendation=False,print_recommendation_plots=False,print_genres=False):
+def give_recommendations(index,):
     index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:6]
     movies_recomm = data['Series_Title'].loc[index_recomm].values
     released_year = data['Released_Year'].loc[index_recomm].values
     plots = data['Overview'].loc[index_recomm].values
     genres = data['Genre'].loc[index_recomm].values
-    result = {'Movies':movies_recomm,'year':released_year, 'plot':plots, 'genre':genres} #APPEND ALL TO DICT AND ACCESS IT LATER
-    if print_recommendation==True:
-        st.write('The watched movie is this one: %s \n'%(data['Series_Title'].loc[index]))
-        for k, movie in enumerate(movies_recomm, start=1):
-            st.subheader('The number %i recommended movie is this one: %s \n'%(k,movie))
-            # for k, q in enumerate(range(len(movies_recomm)), start=1): Released_Year
-            #     plot_q = data['Overview'].loc[index_recomm[q]]
-            #     genre = data['Genre'].loc[index_recomm[q]]   
-            #     st.subheader('Plot:  \n %s \n'%(plot_q))
-            #     st.subheader('Genre:  \n %s \n'%(genre))
-            #     q
-    if print_recommendation_plots==True:
-        # st.write('The plot of the watched movie is this one:  \n %s \n'%(data['Overview'].loc[index]))
-        for k, q in enumerate(range(len(movies_recomm)), start=1):
-            plot_q = data['Overview'].loc[index_recomm[q]]
-            st.subheader('The plot of the number %i recommended movie is this one:  \n %s \n'%(k,plot_q))
-    if print_genres==True:
-        # st.write('The genres of the watched movie is this one:\n %s \n'%(data['Genre'].loc[index]))
-        for k, q in enumerate(range(len(movies_recomm)), start=1):
-            plot_q = data['Genre'].loc[index_recomm[q]]
-            st.subheader('The plot of the number %i recommended movie is this one:  \n %s \n'%(k,plot_q))
-    return result
+    rating = data['IMDB_Rating'].loc[index_recomm].values
+    return {
+        'Movies': movies_recomm,
+        'year': released_year,
+        'plot': plots,
+        'genre': genres,
+        'rating': rating,
+    }
 
 data, cos_sim_data, series_title = load_data('Data/data.csv', 'Data/cos_sim_data.pkl')
 
@@ -57,26 +48,11 @@ if __name__ == "__main__":
     if btn:
         for idx, elm in enumerate(series_title[1:]):
             if elm == movie_name:
-                # st.write(idx)
-                ret = (give_recommendations(idx,False,False,False))
-                # st.write(ret)
+                result = (give_recommendations(idx))
         
-        for k, movie in enumerate(ret['Movies'], start=1):
+        for k, movie in enumerate(result['Movies'], start=1):
             st.header(f'The number {k} recommended movie is:')
-            st.subheader(f'{movie}({ret["year"][k-1]}) - {ret["genre"][k-1]}')
-            plot_q = ret['plot'][k-1]
-            st.write(f'##### {plot_q}')
-            # genre = ret['genre'][k-1]   
-            # st.subheader(genre)
-            # k
-
-        # for i in range(len(ret['Movies'])):
-        #     my_mov = ret['Movies'][i]
-        #     st.write(f'##### The #{i+1} recommended movie is:')
-        #     st.write(f'##### {ret["Movies"][i]}({ret["year"][i]})')
-
-        #     st.write(ret['Movies'][i])
-        #     st.write(ret['year'][i])
-        #     st.write(ret['plot'][i])
-        #     st.write(ret['genre'][i])
-        #     st.write('\n')
+            st.subheader(f'{movie}({result["year"][k-1]}) - {result["genre"][k-1]}')
+            st.write(f'##### {result["plot"][k-1]}')
+            st.write(f'##### IMDb Rating: {result["rating"][k-1]}')
+            
