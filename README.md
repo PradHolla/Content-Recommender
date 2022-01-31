@@ -2,6 +2,11 @@
 Movie Recommender System built using the IMDb 1000 movies dataset, PCA, Transformers, Pandas and NumPy.
 
 To run the app on your local machine, you need to perform the following:
+```bash
+git clone https://github.com/PradHolla/Content-Recommender.git
+
+cd Content_Recommender
+```
 # Install Required libraries
 
 ```bash
