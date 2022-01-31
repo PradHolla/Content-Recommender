@@ -5,12 +5,12 @@ st.set_page_config(page_title="Movie Recommender System", page_icon="🎬", layo
 
 background = Image.open("Data/clapper.png")
 col1, col2, col3 = st.columns([3, 3, 1])
-col2.image(background, width=200)
+col2.image(background, width=150)
 # st.image("Data/clapper.png", width=200)
 st.header("Movie Recommender")
 st.write("""
-###### This app recommends 5 similar movies to the one you watched. Just enter the movie title and click on the button.
-###### This app is based on the IMDb 1000 movies dataset. The dataset is available [here](https://www.kaggle.com/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows).\
+##### This app recommends 5 similar movies to the one you watched. Just enter the movie title and click on the button.
+##### This app is based on the IMDb 1000 movies dataset. The dataset is available [here](https://www.kaggle.com/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows).\
  The movie plots are converted into vectors and grouped using the Sentence Transformers Library. Then when the user selects a movie, the app finds 5 nearest vectors\
     using Cosine Similarity and returns the 5 movies.
 """)
