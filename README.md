@@ -17,3 +17,7 @@ pip install -r requirements.txt
 ```bash
 streamlit run streamlit_app.py
 ```
+
+The project is based on this article:
+
+https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4
