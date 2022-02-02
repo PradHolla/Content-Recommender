@@ -10,7 +10,7 @@ col2.image(background, width=150)
 st.header("Movie Recommender")
 st.write("Created by [PNH](https://github.com/PradHolla). Powered by [Streamlit](https://streamlit.io/).")
 st.write("""
-##### This app recommends 5 similar movies to the one you watched. Just enter the movie title and click on the button.
+##### This app recommends 5 similar movies to the one you watched. Just enter the movie title and click the Recommend button.
 ##### This app is based on the IMDb 1000 movies dataset. The dataset is available [here](https://www.kaggle.com/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows).\
  The movie plots are converted into vectors and grouped using the Sentence Transformers Library. Then when the user selects a movie, the app finds 5 nearest vectors\
     using Cosine Similarity and returns the 5 movies.
@@ -44,7 +44,7 @@ data, cos_sim_data, series_title = load_data('Data/data.csv', 'Data/cos_sim_data
 
 if __name__ == "__main__":
     movie_name = st.selectbox("Start Typing: ", (series_title))
-    btn = st.button("Recommendation")
+    btn = st.button("Recommend")
     st.write(movie_name)
     if btn:
         for idx, elm in enumerate(series_title[1:]):
