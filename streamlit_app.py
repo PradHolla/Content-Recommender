@@ -10,10 +10,10 @@ col2.image(background, width=150)
 st.header("Movie Recommender")
 st.write("Created by [PNH](https://github.com/PradHolla). Powered by [Streamlit](https://streamlit.io/).")
 st.write("""
-##### This app recommends 5 similar movies to the one you watched. Just enter the movie title and click the Recommend button.
+##### This app recommends 5 similar movies to the one you enter. Just enter the movie title and hit Recommend!
 ##### This app is based on the IMDb 1000 movies dataset. The dataset is available [here](https://www.kaggle.com/harshitshankhdhar/imdb-dataset-of-top-1000-movies-and-tv-shows).\
- The movie plots are converted into vectors and grouped using the Sentence Transformers Library. Then when the user selects a movie, the app finds 5 nearest vectors\
-    using Cosine Similarity and returns the 5 movies.
+ The movie plots are converted into vectors and grouped using the Sentence Transformers Library. When the user selects a movie, the app finds 5 nearest vectors\
+    using [Cosine Similarity](https://en.wikipedia.org/wiki/Cosine_similarity) and returns the 5 similar movies.
 """)
 st.subheader("Enter the movie you watched:")
 
@@ -44,16 +44,18 @@ data, cos_sim_data, series_title = load_data('Data/data.csv', 'Data/cos_sim_data
 
 if __name__ == "__main__":
     movie_name = st.selectbox("Start Typing: ", (series_title))
-    btn = st.button("Recommend")
-    st.write(movie_name)
-    if btn:
-        for idx, elm in enumerate(series_title[1:]):
-            if elm == movie_name:
-                result = (give_recommendations(idx))
-        
-        for k, movie in enumerate(result['Movies'], start=1):
-            st.header(f'The number {k} recommended movie is:')
-            st.subheader(f'{movie}({result["year"][k-1]}) - {result["genre"][k-1]}')
-            st.write(f'##### {result["plot"][k-1]}')
-            st.write(f'##### IMDb Rating: {result["rating"][k-1]}')
-            
+    if btn := st.button("Recommend!"):
+        if movie_name != '':
+            st.write(movie_name)
+            for idx, elm in enumerate(series_title[1:]):
+                if elm == movie_name:
+                    result = (give_recommendations(idx))
+
+            for k, movie in enumerate(result['Movies'], start=1):
+                st.header(f'The number {k} recommended movie is:')
+                st.subheader(f'{movie}({result["year"][k-1]}) - {result["genre"][k-1]}')
+                st.write(f'##### {result["plot"][k-1]}')
+                st.write(f'##### IMDb Rating: {result["rating"][k-1]}')
+
+        else:
+            st.info("Please enter a valid movie name")
